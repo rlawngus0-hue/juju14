@@ -185,15 +185,11 @@ h1 {
     text-align: center;
 }
 
-.comments-container {
-    margin-top: 4rem;
-    padding: 3rem;
-    background: var(--container-bg);
-    border-radius: 24px;
-    border: 1px solid var(--container-border);
-    box-shadow: 0 20px 40px var(--card-shadow);
-    width: 100%;
-    transition: all 0.5s ease;
+.comments-container h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--header-text);
+    text-align: center;
 }
 
 .contact-form {

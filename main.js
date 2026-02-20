@@ -52,15 +52,35 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     recommendBtn.addEventListener('click', () => {
-        // Simple shuffle animation
+        recommendBtn.disabled = true;
         let count = 0;
         const interval = setInterval(() => {
             displayMenu(getRandomMenu());
             count++;
             if (count >= 10) {
                 clearInterval(interval);
-                displayMenu(getRandomMenu());
+                setTimeout(() => {
+                    displayMenu(getRandomMenu());
+                    recommendBtn.disabled = false;
+                }, 100);
             }
         }, 50);
     });
+
+    // Disqus Initialization
+    const initDisqus = () => {
+        const d = document;
+        const s = d.createElement('script');
+        s.src = 'https://juju14.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    };
+
+    // Global disqus_config for the embed script to use
+    window.disqus_config = function () {
+        this.page.url = window.location.href;
+        this.page.identifier = 'juju14-main';
+    };
+
+    initDisqus();
 });
