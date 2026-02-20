@@ -179,7 +179,8 @@ h1 {
     transition: all 0.5s ease;
 }
 
-.partnership-container h2 {
+.partnership-container h2,
+.comments-container h2 {
     font-size: 2rem;
     margin-bottom: 2rem;
     color: var(--header-text);
