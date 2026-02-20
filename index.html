@@ -3,27 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오늘 뭐 먹지? - 저녁 메뉴 추천</title>
+    <title>오늘 뭐 먹지? & 동물상 테스트</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 </head>
 <body>
-    <div class="main-container">
+    <div class="app-wrapper">
         <header>
-            <h1>오늘 뭐 먹지? 🍽️</h1>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
-                🌙
-            </button>
+            <h1>오늘의 초이스 🎯</h1>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
         </header>
-        <main>
-            <div class="menu-container">
-                <div id="menu-display" class="menu-display">
-                    <p class="placeholder-text">버튼을 눌러 메뉴를 골라보세요!</p>
-                </div>
-                <button id="recommend-btn" class="recommend-btn">
-                    저녁 메뉴 추천받기
-                </button>
-            </div>
 
+        <div class="content-grid">
+            <!-- Left Side: Menu Recommender -->
+            <section class="column-section menu-section">
+                <div class="section-card">
+                    <h2>🍽️ 오늘 뭐 먹지?</h2>
+                    <div id="menu-display" class="menu-display">
+                        <p class="placeholder-text">버튼을 눌러 메뉴를 골라보세요!</p>
+                    </div>
+                    <button id="recommend-btn" class="recommend-btn">저녁 메뉴 추천받기</button>
+                </div>
+            </section>
+
+            <!-- Right Side: Animal Face Test -->
+            <section class="column-section animal-section">
+                <div class="section-card">
+                    <h2>🐶 동물상 테스트 🐱</h2>
+                    <p class="subtitle">강아지일까요, 고양이일까요?</p>
+                    <div id="ai-container" class="ai-container">
+                        <div id="webcam-container"></div>
+                        <div id="label-container"></div>
+                    </div>
+                    <button type="button" id="start-ai-btn" class="recommend-btn ai-btn" onclick="initAI()">카메라 시작하기</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Bottom Sections -->
+        <div class="bottom-grid">
             <section class="partnership-container">
                 <h2>제휴 문의</h2>
                 <form action="https://formspree.io/f/xeelllva" method="POST" class="contact-form">
@@ -33,7 +52,7 @@
                     </div>
                     <div class="form-group">
                         <label for="message">문의 내용</label>
-                        <textarea id="message" name="message" rows="4" placeholder="제휴 관련 문의 내용을 입력해주세요." required></textarea>
+                        <textarea id="message" name="message" rows="4" placeholder="내용을 입력해주세요." required></textarea>
                     </div>
                     <button type="submit" class="submit-btn">문의하기</button>
                 </form>
@@ -43,26 +62,86 @@
                 <h2>댓글</h2>
                 <div id="disqus_thread"></div>
                 <script>
-                    /**
-                    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-                    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-                    /*
-                    var disqus_config = function () {
-                    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-                    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                    };
-                    */
-                    (function() { // DON'T EDIT BELOW THIS LINE
-                    var d = document, s = d.createElement('script');
-                    s.src = 'https://juju14.disqus.com/embed.js';
-                    s.setAttribute('data-timestamp', +new Date());
-                    (d.head || d.body).appendChild(s);
+                    (function() {
+                        var d = document, s = d.createElement('script');
+                        s.src = 'https://juju14.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
                     })();
                 </script>
-                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
             </section>
-        </main>
+        </div>
     </div>
+
     <script src="main.js"></script>
+    <script type="text/javascript">
+        const URL = "https://teachablemachine.withgoogle.com/models/SAZjYHUnJ/";
+        let model, webcam, labelContainer, maxPredictions;
+
+        async function initAI() {
+            const btn = document.getElementById('start-ai-btn');
+            btn.disabled = true;
+            btn.textContent = "로딩 중...";
+
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+
+            const flip = true;
+            webcam = new tmImage.Webcam(280, 280, flip);
+            await webcam.setup();
+            await webcam.play();
+            window.requestAnimationFrame(loop);
+
+            document.getElementById("webcam-container").appendChild(webcam.canvas);
+            labelContainer = document.getElementById("label-container");
+            labelContainer.innerHTML = ''; 
+            for (let i = 0; i < maxPredictions; i++) {
+                const barContainer = document.createElement("div");
+                barContainer.className = "prediction-bar-container";
+                
+                const label = document.createElement("span");
+                label.className = "prediction-label";
+                
+                const barWrapper = document.createElement("div");
+                barWrapper.className = "bar-wrapper";
+                
+                const bar = document.createElement("div");
+                bar.className = "bar";
+                
+                barWrapper.appendChild(bar);
+                barContainer.appendChild(label);
+                barContainer.appendChild(barWrapper);
+                labelContainer.appendChild(barContainer);
+            }
+            btn.style.display = 'none';
+        }
+
+        async function loop() {
+            webcam.update();
+            await predict();
+            window.requestAnimationFrame(loop);
+        }
+
+        async function predict() {
+            const prediction = await model.predict(webcam.canvas);
+            for (let i = 0; i < maxPredictions; i++) {
+                const name = prediction[i].className;
+                const prob = (prediction[i].probability * 100).toFixed(0);
+                
+                const container = labelContainer.childNodes[i];
+                container.querySelector('.prediction-label').innerText = `${name}: ${prob}%`;
+                container.querySelector('.bar').style.width = prob + "%";
+                
+                if (prediction[i].probability > 0.5) {
+                    container.querySelector('.bar').style.backgroundColor = 'var(--accent-color)';
+                } else {
+                    container.querySelector('.bar').style.backgroundColor = '#ccc';
+                }
+            }
+        }
+    </script>
 </body>
 </html>
