@@ -1,32 +1,30 @@
-
-# Blueprint: Powerball Lotto-Game
+# Blueprint: 오늘 뭐 먹지? (Dinner Menu Recommender)
 
 ## Overview
 
-This project is a web-based Powerball number generator. It provides users with a realistic and engaging experience of generating random numbers for the Powerball lottery game. The application is designed to be visually appealing, user-friendly, and mobile-responsive, mimicking the look and feel of the official Powerball website.
+This project is a web-based "Dinner Menu Recommender" designed to help users solve the daily dilemma of what to eat for dinner. It provides random suggestions from various cuisines (Korean, Western, Japanese, Chinese, etc.) with an engaging UI.
 
 ## Style, Design, and Features
 
 ### Current Version
 
-The application is a fully functional Powerball number generator with a modern UI. It features:
-- **Powerball Rules:** Generates 5 unique white balls (1-69) and 1 red Powerball (1-26).
-- **Interactive UI:** Smooth animations and 3D effects on the balls.
-- **Responsive Design:** Works across desktop and mobile.
-- **Theme Support:** Supports both Dark and Light modes with persistent user preference.
-- **Partnership Inquiry:** A theme-consistent contact form integrated with Formspree for business inquiries.
+The application has been pivoted from a Powerball generator to a dinner menu recommender. It features:
+- **Random Recommendation:** Suggests a menu item with a shuffle animation.
+- **Categorization:** Displays the cuisine category (e.g., KOREAN, WESTERN).
+- **Interactive UI:** Smooth transitions and a modern, card-based display.
+- **Responsive Design:** Optimized for both desktop and mobile use.
+- **Theme Support:** Supports Dark and Light modes with persistent preference.
+- **Partnership Inquiry:** Integrated Formspree contact form for inquiries.
 
-## Plan for Current Request
+## Implementation Details
 
-1.  **Add Theme Toggle Feature:**
-    -   Introduce CSS variables for colors (background, text, container, etc.) in `style.css`.
-    -   Define a `.light-theme` class to override these variables for a light mode experience.
-    -   Add a theme toggle button (`#theme-toggle`) in the header of `index.html`.
-    -   Implement logic in `main.js` to toggle between dark and light themes.
-    -   Use `localStorage` to persist the user's theme preference across sessions.
-
-2.  **Add Partnership Inquiry Form:**
-    -   Create a new `<section class="partnership-container">` in `index.html`.
-    -   Implement a form with Email and Message fields, pointing to the Formspree endpoint.
-    -   Apply consistent styling in `style.css` that respects the current theme (Dark/Light).
-    -   Ensure the form is mobile-responsive and follows accessibility standards.
+1.  **UI Overhaul:**
+    -   Removed lotto-specific elements.
+    -   Implemented a `menu-container` with a `menu-display` area for result cards.
+    -   Styled the result card with typography that emphasizes the menu name.
+2.  **Logic Update:**
+    -   Created a comprehensive list of popular dinner menus.
+    -   Implemented a "shuffle" animation that cycles through menus before picking a final result.
+3.  **Theming:**
+    -   Maintained the CSS variable system for seamless theme switching.
+    -   Added a mint-green accent color (`--accent-color`) for a "fresh/food" aesthetic.

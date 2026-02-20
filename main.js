@@ -1,7 +1,6 @@
-
 document.addEventListener('DOMContentLoaded', () => {
-    const generateBtn = document.getElementById('generate-btn');
-    const lottoNumbersContainer = document.getElementById('lotto-numbers');
+    const recommendBtn = document.getElementById('recommend-btn');
+    const menuDisplay = document.getElementById('menu-display');
     const themeToggle = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
 
@@ -19,52 +18,49 @@ document.addEventListener('DOMContentLoaded', () => {
         themeToggle.textContent = isLight ? '☀️' : '🌙';
     });
 
-    const getRandomColor = () => {
-        const hue = Math.floor(Math.random() * 360);
-        return `oklch(70% 0.25 ${hue})`;
+    const menus = [
+        { name: '치킨', category: 'KOREAN' },
+        { name: '삼겹살', category: 'KOREAN' },
+        { name: '피자', category: 'WESTERN' },
+        { name: '마라탕', category: 'CHINESE' },
+        { name: '초밥', category: 'JAPANESE' },
+        { name: '김치찌개', category: 'KOREAN' },
+        { name: '파스타', category: 'WESTERN' },
+        { name: '돈카츠', category: 'JAPANESE' },
+        { name: '떡볶이', category: 'KOREAN' },
+        { name: '햄버거', category: 'WESTERN' },
+        { name: '짜장면', category: 'CHINESE' },
+        { name: '보쌈', category: 'KOREAN' },
+        { name: '쌀국수', category: 'ASIAN' },
+        { name: '텐동', category: 'JAPANESE' },
+        { name: '라멘', category: 'JAPANESE' },
+        { name: '스테이크', category: 'WESTERN' }
+    ];
+
+    const getRandomMenu = () => {
+        const randomIndex = Math.floor(Math.random() * menus.length);
+        return menus[randomIndex];
     };
 
-    const generatePowerballNumbers = () => {
-        const whiteBalls = new Set();
-        while (whiteBalls.size < 5) {
-            whiteBalls.add(Math.floor(Math.random() * 69) + 1);
-        }
-        
-        const powerball = Math.floor(Math.random() * 26) + 1;
-
-        return {
-            whiteBalls: Array.from(whiteBalls).sort((a, b) => a - b),
-            powerball: powerball
-        };
+    const displayMenu = (menu) => {
+        menuDisplay.innerHTML = `
+            <div class="result-card">
+                <p class="result-category">${menu.category}</p>
+                <h2 class="result-menu">${menu.name}</h2>
+            </div>
+        `;
     };
 
-    const displayNumbers = (numbers) => {
-        lottoNumbersContainer.innerHTML = '';
-        
-        // Display white balls
-        numbers.whiteBalls.forEach((number, index) => {
-            const numberEl = document.createElement('div');
-            numberEl.classList.add('lotto-ball');
-            numberEl.textContent = number;
-            numberEl.style.backgroundColor = getRandomColor();
-            numberEl.style.animationDelay = `${index * 0.1}s`;
-            lottoNumbersContainer.appendChild(numberEl);
-        });
-
-        // Display Powerball
-        const powerballEl = document.createElement('div');
-        powerballEl.classList.add('lotto-ball', 'powerball');
-        powerballEl.textContent = numbers.powerball;
-        powerballEl.style.animationDelay = `${numbers.whiteBalls.length * 0.1}s`;
-        lottoNumbersContainer.appendChild(powerballEl);
-    };
-
-    generateBtn.addEventListener('click', () => {
-        const numbers = generatePowerballNumbers();
-        displayNumbers(numbers);
+    recommendBtn.addEventListener('click', () => {
+        // Simple shuffle animation
+        let count = 0;
+        const interval = setInterval(() => {
+            displayMenu(getRandomMenu());
+            count++;
+            if (count > 10) {
+                clearInterval(interval);
+                displayMenu(getRandomMenu());
+            }
+        }, 50);
     });
-
-    // Initial generation
-    const initialNumbers = generatePowerballNumbers();
-    displayNumbers(initialNumbers);
 });
