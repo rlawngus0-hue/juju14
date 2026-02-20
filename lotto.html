@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로또 번호 추첨기 - 오늘의 초이스</title>
+    <meta name="description" content="실제와 똑같은 색상의 로또 공으로 행운의 번호를 추첨해보세요. 최신 당첨 번호와 비교 기능까지 제공합니다.">
+    <link rel="stylesheet" href="style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4630105636937614" crossorigin="anonymous"></script>
+    <style>
+        .lotto-ball-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            min-height: 80px;
+        }
+        .ball {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3), 3px 5px 10px rgba(0,0,0,0.2);
+            animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        /* 로또 공 색상 규격 */
+        .ball-yellow { background: radial-gradient(circle at 30% 30%, #fbc02d, #f9a825); color: #333; } /* 1-10 */
+        .ball-blue { background: radial-gradient(circle at 30% 30%, #1976d2, #1565c0); } /* 11-20 */
+        .ball-red { background: radial-gradient(circle at 30% 30%, #e53935, #c62828); } /* 21-30 */
+        .ball-gray { background: radial-gradient(circle at 30% 30%, #757575, #616161); } /* 31-40 */
+        .ball-green { background: radial-gradient(circle at 30% 30%, #43a047, #2e7d32); } /* 41-45 */
+
+        .compare-result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--container-border);
+        }
+        .latest-win {
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">🎯 오늘의 초이스</a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="menu.html">메뉴 추천</a></li>
+                <li><a href="worldcup.html">음식 월드컵</a></li>
+                <li><a href="animal.html">동물상 AI</a></li>
+                <li><a href="running.html">러닝 가이드</a></li>
+                <li><a href="lotto.html" class="active">로또 추첨</a></li>
+                <li><a href="info.html">라이프 가이드</a></li>
+            </ul>
+            <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header class="hero-section" style="background: linear-gradient(135deg, #fbc02d, transparent); border-color: #fbc02d;">
+            <h1>🍀 행운의 로또 추첨기</h1>
+            <p>오늘의 운세를 믿어보세요! 실제와 똑같은 색상의 행운 번호를 뽑아드립니다.</p>
+        </header>
+
+        <section class="section-card">
+            <h2>💎 번호 추첨하기</h2>
+            <div id="lotto-display" class="lotto-ball-container">
+                <p class="placeholder-text">행운의 버튼을 눌러주세요!</p>
+            </div>
+            <button id="lotto-btn" class="btn" onclick="generateLotto()">✨ 번호 생성하기</button>
+
+            <div id="compare-section" class="compare-result" style="display: none;">
+                <p>최근 당첨 번호 (1211회): <span class="latest-win">23, 26, 27, 35, 38, 40</span></p>
+                <h3 id="match-count">0개 일치합니다!</h3>
+            </div>
+        </section>
+
+        <article class="article-section">
+            <h2>📊 로또 공 색상의 비밀</h2>
+            <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                <div class="info-item">
+                    <span class="ball ball-yellow" style="width:30px; height:30px; display:inline-flex; font-size:12px;">1</span> 1~10번: 노란색
+                </div>
+                <div class="info-item">
+                    <span class="ball ball-blue" style="width:30px; height:30px; display:inline-flex; font-size:12px;">11</span> 11~20번: 파란색
+                </div>
+                <div class="info-item">
+                    <span class="ball ball-red" style="width:30px; height:30px; display:inline-flex; font-size:12px;">21</span> 21~30번: 빨간색
+                </div>
+                <div class="info-item">
+                    <span class="ball ball-gray" style="width:30px; height:30px; display:inline-flex; font-size:12px;">31</span> 31~40번: 회색
+                </div>
+                <div class="info-item">
+                    <span class="ball ball-green" style="width:30px; height:30px; display:inline-flex; font-size:12px;">41</span> 41~45번: 초록색
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 오늘의 초이스. All rights reserved.</p>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        const latestWinningNumbers = [23, 26, 27, 35, 38, 40];
+
+        function generateLotto() {
+            const btn = document.getElementById('lotto-btn');
+            const display = document.getElementById('lotto-display');
+            const compareSection = document.getElementById('compare-section');
+            const matchText = document.getElementById('match-count');
+            
+            btn.disabled = true;
+            display.innerHTML = '';
+            compareSection.style.display = 'none';
+
+            let numbers = [];
+            while (numbers.length < 6) {
+                let num = Math.floor(Math.random() * 45) + 1;
+                if (!numbers.includes(num)) {
+                    numbers.push(num);
+                }
+            }
+            // 작은 수부터 정렬
+            numbers.sort((a, b) => a - b);
+
+            // 공 생성 애니메이션 (순차적)
+            numbers.forEach((num, i) => {
+                setTimeout(() => {
+                    const ball = document.createElement('div');
+                    ball.className = `ball ${getBallColor(num)}`;
+                    ball.textContent = num;
+                    display.appendChild(ball);
+
+                    if (i === 5) {
+                        btn.disabled = false;
+                        showComparison(numbers);
+                    }
+                }, i * 200);
+            });
+        }
+
+        function getBallColor(num) {
+            if (num <= 10) return 'ball-yellow';
+            if (num <= 20) return 'ball-blue';
+            if (num <= 30) return 'ball-red';
+            if (num <= 40) return 'ball-gray';
+            return 'ball-green';
+        }
+
+        function showComparison(generated) {
+            const compareSection = document.getElementById('compare-section');
+            const matchText = document.getElementById('match-count');
+            
+            const matches = generated.filter(num => latestWinningNumbers.includes(num));
+            const count = matches.length;
+            
+            compareSection.style.display = 'block';
+            matchText.innerHTML = `최근 당첨번호와 <span>${count}개</span> 일치합니다! ${count >= 3 ? '🍀 행운이 가득하시네요!' : ''}`;
+        }
+    </script>
+</body>
+</html>
