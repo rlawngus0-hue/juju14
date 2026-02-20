@@ -1,22 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const recommendBtn = document.getElementById('recommend-btn');
-    const menuDisplay = document.getElementById('menu-display');
+    // Theme logic
     const themeToggle = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
 
-    // Theme logic
-    const savedTheme = localStorage.getItem('theme');
+    const savedTheme = localStorage.getItem('theme') || 'dark';
     if (savedTheme === 'light') {
         htmlElement.classList.add('light-theme');
-        themeToggle.textContent = '☀️';
+        if (themeToggle) themeToggle.textContent = '☀️';
+    } else {
+        if (themeToggle) themeToggle.textContent = '🌙';
     }
 
-    themeToggle.addEventListener('click', () => {
-        htmlElement.classList.toggle('light-theme');
-        const isLight = htmlElement.classList.contains('light-theme');
-        localStorage.setItem('theme', isLight ? 'light' : 'dark');
-        themeToggle.textContent = isLight ? '☀️' : '🌙';
-    });
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            htmlElement.classList.toggle('light-theme');
+            const isLight = htmlElement.classList.contains('light-theme');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            themeToggle.textContent = isLight ? '☀️' : '🌙';
+        });
+    }
+
+    // Menu Recommendation Logic
+    const recommendBtn = document.getElementById('recommend-btn');
+    const menuDisplay = document.getElementById('menu-display');
 
     const menus = [
         { name: '치킨', category: 'KOREAN' },
@@ -34,36 +40,39 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: '쌀국수', category: 'ASIAN' },
         { name: '텐동', category: 'JAPANESE' },
         { name: '라멘', category: 'JAPANESE' },
-        { name: '스테이크', category: 'WESTERN' }
+        { name: '스테이크', category: 'WESTERN' },
+        { name: '불고기', category: 'KOREAN' },
+        { name: '탄탄면', category: 'CHINESE' },
+        { name: '규동', category: 'JAPANESE' },
+        { name: '감바스', category: 'WESTERN' }
     ];
 
-    const getRandomMenu = () => {
-        const randomIndex = Math.floor(Math.random() * menus.length);
-        return menus[randomIndex];
-    };
+    if (recommendBtn && menuDisplay) {
+        const getRandomMenu = () => menus[Math.floor(Math.random() * menus.length)];
 
-    const displayMenu = (menu) => {
-        menuDisplay.innerHTML = `
-            <div class="result-card">
-                <p class="result-category">${menu.category}</p>
-                <h2 class="result-menu">${menu.name}</h2>
-            </div>
-        `;
-    };
+        const displayMenu = (menu) => {
+            menuDisplay.innerHTML = `
+                <div class="result-card">
+                    <p class="result-category">${menu.category}</p>
+                    <h2 class="result-menu">${menu.name}</h2>
+                </div>
+            `;
+        };
 
-    recommendBtn.addEventListener('click', () => {
-        recommendBtn.disabled = true;
-        let count = 0;
-        const interval = setInterval(() => {
-            displayMenu(getRandomMenu());
-            count++;
-            if (count >= 10) {
-                clearInterval(interval);
-                setTimeout(() => {
-                    displayMenu(getRandomMenu());
-                    recommendBtn.disabled = false;
-                }, 100);
-            }
-        }, 50);
-    });
+        recommendBtn.addEventListener('click', () => {
+            recommendBtn.disabled = true;
+            let count = 0;
+            const interval = setInterval(() => {
+                displayMenu(getRandomMenu());
+                count++;
+                if (count >= 15) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        displayMenu(getRandomMenu());
+                        recommendBtn.disabled = false;
+                    }, 100);
+                }
+            }, 60);
+        });
+    }
 });
