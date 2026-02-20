@@ -3,65 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오늘 뭐 먹지? & 동물상 테스트</title>
+    <title>오늘 뭐 먹지? & AI 동물상 테스트 - 스마트한 결정 도우미</title>
+    <meta name="description" content="결정 장애를 해결해주는 저녁 메뉴 추천 서비스와 AI를 활용한 강아지상, 고양이상 동물상 테스트를 한 곳에서 즐겨보세요.">
+    <meta name="keywords" content="오늘뭐먹지, 메뉴추천, 동물상테스트, AI동물상, 강아지상, 고양이상, 저녁추천">
     <link rel="stylesheet" href="style.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4630105636937614"
-     crossorigin="anonymous"></script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4630105636937614" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 </head>
 <body>
     <div class="app-wrapper">
         <header>
-            <h1>오늘의 초이스 🎯</h1>
+            <div class="logo">
+                <h1>오늘의 초이스 🎯</h1>
+                <p>AI 기술과 데이터를 활용한 스마트 라이프 가이드</p>
+            </div>
             <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
         </header>
 
-        <div class="content-grid">
+        <nav class="site-nav">
+            <ul>
+                <li><a href="#menu-section">메뉴 추천</a></li>
+                <li><a href="#animal-section">동물상 테스트</a></li>
+                <li><a href="#info-section">서비스 가이드</a></li>
+            </ul>
+        </nav>
+
+        <main class="content-grid">
             <!-- Left Side: Menu Recommender -->
-            <section class="column-section menu-section">
-                <div class="section-card">
-                    <h2>🍽️ 오늘 뭐 먹지?</h2>
+            <section id="menu-section" class="column-section">
+                <article class="section-card">
+                    <header class="card-header">
+                        <h2>🍽️ 저녁 메뉴 랜덤 추천</h2>
+                        <p>한식, 중식, 일식, 양식 중 당신의 완벽한 한 끼를 골라드립니다.</p>
+                    </header>
                     <div id="menu-display" class="menu-display">
-                        <p class="placeholder-text">버튼을 눌러 메뉴를 골라보세요!</p>
+                        <p class="placeholder-text">데이터 분석을 통한 추천을 시작하세요.</p>
                     </div>
-                    <button id="recommend-btn" class="recommend-btn">저녁 메뉴 추천받기</button>
-                </div>
+                    <button id="recommend-btn" class="recommend-btn">메뉴 추천받기</button>
+                    <footer class="card-info">
+                        <p>※ 100여 가지의 엄선된 데이터베이스를 바탕으로 무작위 추출됩니다.</p>
+                    </footer>
+                </article>
             </section>
 
             <!-- Right Side: Animal Face Test -->
-            <section class="column-section animal-section">
-                <div class="section-card">
-                    <h2>🐶 동물상 테스트 🐱</h2>
-                    <p class="subtitle">강아지일까요, 고양이일까요?</p>
+            <section id="animal-section" class="column-section">
+                <article class="section-card">
+                    <header class="card-header">
+                        <h2>🐶 AI 동물상 테스트</h2>
+                        <p>Teachable Machine 2.0 모델 기반 실시간 안면 인식 분석</p>
+                    </header>
                     <div id="ai-container" class="ai-container">
                         <div id="webcam-container"></div>
                         <div id="label-container"></div>
                     </div>
-                    <button type="button" id="start-ai-btn" class="recommend-btn ai-btn" onclick="initAI()">카메라 시작하기</button>
-                </div>
+                    <button type="button" id="start-ai-btn" class="recommend-btn ai-btn" onclick="initAI()">분석 엔진 가동하기</button>
+                    <footer class="card-info">
+                        <p>※ 촬영된 영상은 어디에도 저장되지 않으니 안심하세요.</p>
+                    </footer>
+                </article>
             </section>
-        </div>
+        </main>
 
-        <!-- Bottom Sections -->
+        <!-- Information Section (AdSense Optimization) -->
+        <section id="info-section" class="info-section">
+            <div class="info-card">
+                <h3>이 사이트가 유용한 이유</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4>🎯 정확한 결정</h4>
+                        <p>선택의 폭이 넓어 발생하는 '결정 장애'를 해결하기 위해 알고리즘 기반의 랜덤 추천 기능을 제공합니다.</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>🧠 최신 AI 기술</h4>
+                        <p>Google의 머신러닝 모델을 활용하여 사용자의 특징을 분석하고 재미있는 결과를 도출합니다.</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>🔒 개인정보 보호</h4>
+                        <p>모든 데이터는 브라우저 내에서 처리되며 서버로 전송되지 않아 보안이 철저합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <div class="bottom-grid">
             <section class="partnership-container">
-                <h2>제휴 문의</h2>
+                <h3>제휴 및 서비스 문의</h3>
+                <p>본 서비스는 지속적으로 업데이트됩니다. 협업 제안은 아래 폼을 이용해 주세요.</p>
                 <form action="https://formspree.io/f/xeelllva" method="POST" class="contact-form">
                     <div class="form-group">
-                        <label for="email">이메일 주소</label>
-                        <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                        <input type="email" id="email" name="email" placeholder="답변받을 이메일" required>
                     </div>
                     <div class="form-group">
-                        <label for="message">문의 내용</label>
-                        <textarea id="message" name="message" rows="4" placeholder="내용을 입력해주세요." required></textarea>
+                        <textarea id="message" name="message" rows="3" placeholder="문의 내용을 상세히 적어주시면 검토를 통과하는 데 도움이 됩니다." required></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">문의하기</button>
+                    <button type="submit" class="submit-btn">메시지 보내기</button>
                 </form>
             </section>
 
             <section class="comments-container">
-                <h2>댓글</h2>
+                <h3>사용자 커뮤니티</h3>
                 <div id="disqus_thread"></div>
                 <script>
                     (function() {
@@ -73,52 +116,57 @@
                 </script>
             </section>
         </div>
+
+        <footer class="site-footer">
+            <p>&copy; 2026 오늘의 초이스. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">개인정보처리방침</a> | 
+                <a href="#">이용약관</a> | 
+                <a href="mailto:admin@juju14.pages.dev">고객지원</a>
+            </div>
+        </footer>
     </div>
 
     <script src="main.js"></script>
     <script type="text/javascript">
+        // AI Logic (기존 유지하되 시각적 최적화)
         const URL = "https://teachablemachine.withgoogle.com/models/SAZjYHUnJ/";
         let model, webcam, labelContainer, maxPredictions;
 
         async function initAI() {
             const btn = document.getElementById('start-ai-btn');
             btn.disabled = true;
-            btn.textContent = "로딩 중...";
+            btn.textContent = "AI 모델 로딩 중...";
 
-            const modelURL = URL + "model.json";
-            const metadataURL = URL + "metadata.json";
+            try {
+                const modelURL = URL + "model.json";
+                const metadataURL = URL + "metadata.json";
+                model = await tmImage.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
 
-            model = await tmImage.load(modelURL, metadataURL);
-            maxPredictions = model.getTotalClasses();
+                webcam = new tmImage.Webcam(280, 280, true);
+                await webcam.setup();
+                await webcam.play();
+                window.requestAnimationFrame(loop);
 
-            const flip = true;
-            webcam = new tmImage.Webcam(280, 280, flip);
-            await webcam.setup();
-            await webcam.play();
-            window.requestAnimationFrame(loop);
-
-            document.getElementById("webcam-container").appendChild(webcam.canvas);
-            labelContainer = document.getElementById("label-container");
-            labelContainer.innerHTML = ''; 
-            for (let i = 0; i < maxPredictions; i++) {
-                const barContainer = document.createElement("div");
-                barContainer.className = "prediction-bar-container";
-                
-                const label = document.createElement("span");
-                label.className = "prediction-label";
-                
-                const barWrapper = document.createElement("div");
-                barWrapper.className = "bar-wrapper";
-                
-                const bar = document.createElement("div");
-                bar.className = "bar";
-                
-                barWrapper.appendChild(bar);
-                barContainer.appendChild(label);
-                barContainer.appendChild(barWrapper);
-                labelContainer.appendChild(barContainer);
+                document.getElementById("webcam-container").appendChild(webcam.canvas);
+                labelContainer = document.getElementById("label-container");
+                labelContainer.innerHTML = ''; 
+                for (let i = 0; i < maxPredictions; i++) {
+                    const barContainer = document.createElement("div");
+                    barContainer.className = "prediction-bar-container";
+                    barContainer.innerHTML = `
+                        <span class="prediction-label"></span>
+                        <div class="bar-wrapper"><div class="bar"></div></div>
+                    `;
+                    labelContainer.appendChild(barContainer);
+                }
+                btn.style.display = 'none';
+            } catch (e) {
+                alert("카메라 권한이 필요하거나 AI 모델을 불러오지 못했습니다.");
+                btn.disabled = false;
+                btn.textContent = "다시 시작하기";
             }
-            btn.style.display = 'none';
         }
 
         async function loop() {
@@ -132,16 +180,10 @@
             for (let i = 0; i < maxPredictions; i++) {
                 const name = prediction[i].className;
                 const prob = (prediction[i].probability * 100).toFixed(0);
-                
                 const container = labelContainer.childNodes[i];
                 container.querySelector('.prediction-label').innerText = `${name}: ${prob}%`;
                 container.querySelector('.bar').style.width = prob + "%";
-                
-                if (prediction[i].probability > 0.5) {
-                    container.querySelector('.bar').style.backgroundColor = 'var(--accent-color)';
-                } else {
-                    container.querySelector('.bar').style.backgroundColor = '#ccc';
-                }
+                container.querySelector('.bar').style.backgroundColor = prediction[i].probability > 0.5 ? 'var(--accent-color)' : '#999';
             }
         }
     </script>
