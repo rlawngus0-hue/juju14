@@ -15,6 +15,7 @@ The application has been pivoted from a Powerball generator to a dinner menu rec
 - **Responsive Design:** Optimized for both desktop and mobile use.
 - **Theme Support:** Supports Dark and Light modes with persistent preference.
 - **Partnership Inquiry:** Integrated Formspree contact form for inquiries.
+- **Community Interaction:** Integrated Disqus for user comments and community discussion.
 
 ## Implementation Details
 

@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const interval = setInterval(() => {
             displayMenu(getRandomMenu());
             count++;
-            if (count > 10) {
+            if (count >= 10) {
                 clearInterval(interval);
                 displayMenu(getRandomMenu());
             }

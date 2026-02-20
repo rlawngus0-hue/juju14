@@ -185,6 +185,17 @@ h1 {
     text-align: center;
 }
 
+.comments-container {
+    margin-top: 4rem;
+    padding: 3rem;
+    background: var(--container-bg);
+    border-radius: 24px;
+    border: 1px solid var(--container-border);
+    box-shadow: 0 20px 40px var(--card-shadow);
+    width: 100%;
+    transition: all 0.5s ease;
+}
+
 .contact-form {
     display: flex;
     flex-direction: column;

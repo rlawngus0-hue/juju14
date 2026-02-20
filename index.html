@@ -38,6 +38,22 @@
                     <button type="submit" class="submit-btn">문의하기</button>
                 </form>
             </section>
+
+            <section class="comments-container">
+                <div id="disqus_thread"></div>
+                <script>
+                    var disqus_config = function () {
+                        this.page.url = window.location.href;
+                        this.page.identifier = 'juju14-main';
+                    };
+                    (function() {
+                        var d = document, s = d.createElement('script');
+                        s.src = 'https://juju14.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+            </section>
         </main>
     </div>
     <script src="main.js"></script>
